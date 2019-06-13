@@ -2,6 +2,7 @@ package com.nowcoder.toutiao.controller;
 
 import com.nowcoder.toutiao.model.*;
 import com.nowcoder.toutiao.service.CommentService;
+import com.nowcoder.toutiao.service.LikeService;
 import com.nowcoder.toutiao.service.QuestionService;
 import com.nowcoder.toutiao.service.UserService;
 import com.nowcoder.toutiao.util.WendaUtil;
@@ -32,20 +33,30 @@ public class QuestionController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    LikeService likeService;
+
 
     @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable("qid") int qid) {
         Question question = questionService.getById(qid);
         model.addAttribute("question", question);
         List<Comment>commentList=commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
-        List<ViewObject>vos=new ArrayList<>();
+        List<ViewObject>comments=new ArrayList<>();
         for (Comment comment:commentList){
             ViewObject vo=new ViewObject();
             vo.set("comment",comment);
+            if (hostHolder.getUser()==null){
+                vo.set("liked", 0);
+            }else {
+                vo.set("liked",likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT,
+                        comment.getId()));
+            }
+            vo.set("liked", likeService.getLikeCount(EntityType.ENTITY_COMMENT, comment.getId()));
             vo.set("user",userService.getUser(comment.getUserId()));
-            vos.add(vo);
+            comments.add(vo);
         }
-        model.addAttribute("comments",vos);
+        model.addAttribute("comments",comments);
 
         return "detail";
     }
