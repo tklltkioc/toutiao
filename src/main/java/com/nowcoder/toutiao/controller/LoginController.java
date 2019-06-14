@@ -84,7 +84,7 @@ public class LoginController {
                 response.addCookie(cookie);
 
                 eventProducer.fireEvent(new EventModel(EventType.LOGIN)
-                        .setExt("username", username).setExt("email", "604947740@qq.com")
+                        .setExt("username", username).setExt("email", "a604947740@163.com")
                         .setActorId((int)map.get("userId")));//登录时发送的事件
 
                 if (StringUtils.isNotBlank(next)) {
