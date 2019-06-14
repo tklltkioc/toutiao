@@ -55,7 +55,6 @@ public class MailSender implements InitializingBean {
         mailSender = new JavaMailSenderImpl();
         mailSender.setUsername("a604947740@163.com");
 //        mailSender.setUsername("tktktkl@foxmail.com");
-        mailSender.setPassword("Caonima123");
         mailSender.setHost("smtp.163.com");
         //mailSender.setHost("smtp.qq.com");
         mailSender.setPort(465);
