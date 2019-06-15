@@ -3,8 +3,11 @@ package com.nowcoder.toutiao;
 import com.nowcoder.toutiao.dao.MessageDAO;
 import com.nowcoder.toutiao.dao.QuestionDAO;
 import com.nowcoder.toutiao.dao.UserDAO;
+import com.nowcoder.toutiao.model.EntityType;
 import com.nowcoder.toutiao.model.Question;
 import com.nowcoder.toutiao.model.User;
+import com.nowcoder.toutiao.service.FollowService;
+import com.nowcoder.toutiao.util.JedisAdapter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,10 +25,18 @@ import java.util.Random;
 public class InitDatabaseTests {
 	@Autowired
 	UserDAO userDAO;
+
 	@Autowired
 	QuestionDAO questionDAO;
+
 	@Autowired
 	MessageDAO messageDAO;
+
+	@Autowired
+	FollowService followService;
+
+	@Autowired
+	JedisAdapter jedisAdapter;
 
 	@Test
 	public void initDatabase() {
@@ -39,6 +50,10 @@ public class InitDatabaseTests {
 			userDAO.addUser(user);
 			user.setPassword("sad");
 			userDAO.updatePassword(user);
+
+			for (int j = 1; j < i; j++) {
+				followService.follow(j, EntityType.ENTITY_USER, i+1);
+			}
 
 			Question question=new Question();
 			question.setCommentCount(i);
