@@ -82,6 +82,7 @@ public class QuestionController {
         } else {
             model.addAttribute("followed", false);
         }
+
         return "detail";
     }
 

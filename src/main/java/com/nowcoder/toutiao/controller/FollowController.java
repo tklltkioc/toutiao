@@ -9,9 +9,8 @@ import com.nowcoder.toutiao.service.FollowService;
 import com.nowcoder.toutiao.service.QuestionService;
 import com.nowcoder.toutiao.service.UserService;
 import com.nowcoder.toutiao.util.WendaUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +23,9 @@ import java.util.Map;
  * @author tktktkl@foxmail.com
  * @date 2019/6/15 16:45
  */
+@Controller
 public class FollowController {
-    private static final Logger logger= LoggerFactory.getLogger(FollowController.class);
+//    private static final Logger logger= LoggerFactory.getLogger(FollowController.class);
 
     @Autowired
     UserService userService;
@@ -105,10 +105,10 @@ public class FollowController {
         info.put("headUrl", hostHolder.getUser().getHeadUrl());
         info.put("name", hostHolder.getUser().getName());
         info.put("id", hostHolder.getUser().getId());
-        info.put("count", followService.getFollowerCount(EntityType.ENTITY_QUESTION,questionId));
+        info.put("count", followService.getFollowerCount(EntityType.ENTITY_QUESTION, questionId));
 
         // 返回关注的问题信息
-        return WendaUtil.getJSONString(ret ? 0 : 1,info);
+        return WendaUtil.getJSONString(ret ? 0 : 1, info);
     }
 
     //当前用户取消问题关注

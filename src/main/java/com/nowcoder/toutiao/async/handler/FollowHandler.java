@@ -10,6 +10,7 @@ import com.nowcoder.toutiao.service.MessageService;
 import com.nowcoder.toutiao.service.UserService;
 import com.nowcoder.toutiao.util.WendaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author tktktkl@foxmail.com
  * @date 2019/6/15 20:54
  */
+@Component
 public class FollowHandler implements EventHandler {
 
     @Autowired
