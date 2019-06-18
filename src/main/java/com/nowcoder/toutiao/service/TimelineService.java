@@ -10,8 +10,8 @@ import java.util.List;
  * @date 2019/6/16 20:13
  */
 @Service
-public class TimeService {
-    public List<Feed>pull(int userId,int maxId,int count){
+public class TimelineService {
+    public List<Feed> pull(int userId, int maxId, int count) {
         return null;
     }
 }

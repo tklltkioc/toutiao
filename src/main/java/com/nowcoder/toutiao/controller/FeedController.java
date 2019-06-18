@@ -38,6 +38,7 @@ public class FeedController {
     @Autowired
     JedisAdapter jedisAdapter;
 
+    //推模式,无需删除取消关注的用户发来的事件信息
     @RequestMapping(path = {"/pushfeeds"}, method = {RequestMethod.GET, RequestMethod.POST})
     private String getPushFeeds(Model model) {
         int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
@@ -53,12 +54,13 @@ public class FeedController {
         return "feeds";
     }
 
+    //拉模式
     @RequestMapping(path = {"/pullfeeds"}, method = {RequestMethod.GET, RequestMethod.POST})
     private String getPullFeeds(Model model) {
         int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
         List<Integer> followees = new ArrayList<>();
         if (localUserId != 0) {
-            // 关注的人
+            // 所有关注的人
             followees = followService.getFollowees(localUserId, EntityType.ENTITY_USER, Integer.MAX_VALUE);
         }
         List<Feed> feeds = feedService.getUserFeeds(Integer.MAX_VALUE, followees, 10);

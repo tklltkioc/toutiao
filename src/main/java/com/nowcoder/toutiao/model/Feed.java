@@ -13,7 +13,7 @@ public class Feed {
     private int type;
     private int userId;
     private Date createdDate;
-    private String data;
+    private String data;//新鲜事数据，代表数据关系，a存什么b什么
     private JSONObject dataJSON = null;
 
     public int getId() {
@@ -56,6 +56,7 @@ public class Feed {
         this.data = data;
         dataJSON = JSONObject.parseObject(data);
     }
+    //当vo.userName使用,velocity模板自动解析、调用不同key方法
     public String get(String key) {
         return dataJSON == null ? null : dataJSON.getString(key);
     }

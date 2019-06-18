@@ -41,6 +41,7 @@ public class FeedHandler implements EventHandler {
     QuestionService questionService;
 
 
+    //建立feed的data
     private String buildFeedData(EventModel model) {
         Map<String, String> map = new HashMap<String ,String>();
         // 触发用户是通用的
@@ -52,9 +53,10 @@ public class FeedHandler implements EventHandler {
         map.put("userHead", actor.getHeadUrl());
         map.put("userName", actor.getName());
 
+        //关注的评论或者是关注问题且是关注粉丝
         if (model.getType() == EventType.COMMENT ||
                 (model.getType() == EventType.FOLLOW  && model.getEntityType() == EntityType.ENTITY_QUESTION)) {
-            Question question = questionService.getById(model.getEntityId());
+            Question question = questionService.getById(model.getEntityId());//问题Id
             if (question == null) {
                 return null;
             }
@@ -85,7 +87,7 @@ public class FeedHandler implements EventHandler {
 
         // 获得所有粉丝
         List<Integer> followers = followService.getFollowers(EntityType.ENTITY_USER, model.getActorId(), Integer.MAX_VALUE);
-        // 系统队列
+        // 系统队列,未登录情况
         followers.add(0);
         // 给所有粉丝推事件
         for (int follower : followers) {
@@ -97,6 +99,7 @@ public class FeedHandler implements EventHandler {
 
     @Override
     public List<EventType> getSupportEventTypes() {
+        //feed事件包括评论、关注
         return Arrays.asList(new EventType[]{EventType.COMMENT, EventType.FOLLOW});
     }
 }

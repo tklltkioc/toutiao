@@ -27,6 +27,7 @@ public interface FeedDAO {
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
     Feed getFeedById(int id);
 
+    //最大的feed流id
     List<Feed> selectUserFeeds(@Param("maxId") int maxId,
                                @Param("userIds") List<Integer> userIds,
                                @Param("count") int count);
