@@ -12,6 +12,7 @@ import java.util.List;
  * @date 2019/6/16 16:02
  */
 @Service
+
 public class FeedService {
     @Autowired
     FeedDAO feedDAO;

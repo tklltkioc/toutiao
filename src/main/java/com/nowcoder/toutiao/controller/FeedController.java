@@ -7,8 +7,6 @@ import com.nowcoder.toutiao.service.FeedService;
 import com.nowcoder.toutiao.service.FollowService;
 import com.nowcoder.toutiao.util.JedisAdapter;
 import com.nowcoder.toutiao.util.RedisKeyUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,13 +22,13 @@ import java.util.List;
  */
 @Controller
 public class FeedController {
-    private static final Logger logger = LoggerFactory.getLogger(FeedController.class);
-
-    @Autowired
-    FeedService feedService;
+//    private static final Logger logger = LoggerFactory.getLogger(FeedController.class);
 
     @Autowired
     FollowService followService;
+
+    @Autowired
+    FeedService feedService;
 
     @Autowired
     HostHolder hostHolder;
@@ -40,7 +38,7 @@ public class FeedController {
 
     //推模式,无需删除取消关注的用户发来的事件信息
     @RequestMapping(path = {"/pushfeeds"}, method = {RequestMethod.GET, RequestMethod.POST})
-    private String getPushFeeds(Model model) {
+    public String getPushFeeds(Model model) {
         int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
         List<String> feedIds = jedisAdapter.lrange(RedisKeyUtil.getTimelineKey(localUserId), 0, 10);
         List<Feed> feeds = new ArrayList<Feed>();
@@ -56,7 +54,7 @@ public class FeedController {
 
     //拉模式
     @RequestMapping(path = {"/pullfeeds"}, method = {RequestMethod.GET, RequestMethod.POST})
-    private String getPullFeeds(Model model) {
+    public String getPullFeeds(Model model) {
         int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
         List<Integer> followees = new ArrayList<>();
         if (localUserId != 0) {

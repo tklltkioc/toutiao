@@ -70,8 +70,8 @@ public class FeedHandler implements EventHandler {
     @Override
     public void doHandler(EventModel model) {
         // 为了测试，把model的userId随机一下
-        Random r = new Random();
-        model.setActorId(1+r.nextInt(10));
+//        Random r = new Random();
+//        model.setActorId(1+r.nextInt(10));
 
         // 构造一个新鲜事
         Feed feed = new Feed();
@@ -79,6 +79,7 @@ public class FeedHandler implements EventHandler {
         feed.setType(model.getType().getValue());
         feed.setUserId(model.getActorId());
         feed.setData(buildFeedData(model));
+
         if (feed.getData() == null) {
             // 不支持的feed
             return;
