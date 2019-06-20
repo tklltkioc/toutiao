@@ -39,7 +39,7 @@ public class SearchController {
     @Autowired
     QuestionService questionService;
 
-    @RequestMapping(path = {"/search"},method = {RequestMethod.GET})
+    @RequestMapping(path = {"/search"}, method = {RequestMethod.GET})
     public String search(Model model, @RequestParam("q")String keyword,
                          @RequestParam(value = "offset",defaultValue = "0")int offset,
                          @RequestParam(value = "count",defaultValue = "10")int count){

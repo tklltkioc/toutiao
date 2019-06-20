@@ -1,6 +1,8 @@
 package com.nowcoder.toutiao.controller;
 
+import com.nowcoder.toutiao.async.EventModel;
 import com.nowcoder.toutiao.async.EventProducer;
+import com.nowcoder.toutiao.async.EventType;
 import com.nowcoder.toutiao.model.*;
 import com.nowcoder.toutiao.service.*;
 import com.nowcoder.toutiao.util.WendaUtil;
@@ -102,6 +104,9 @@ public class QuestionController {
                 question.setUserId(hostHolder.getUser().getId());
             }
             if (questionService.addQuestion(question) > 0) {
+                eventProducer.fireEvent(new EventModel(EventType.ADD_QUESTION)
+                        .setActorId(question.getUserId()).setEntityId(question.getId())
+                .setExt("title", question.getTitle()).setExt("content", question.getContent()));
                 return WendaUtil.getJSONString(0);
             }
         } catch (Exception e) {
