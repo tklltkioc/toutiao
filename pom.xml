@@ -11,6 +11,8 @@
 	<groupId>com.nowcoder</groupId>
 	<artifactId>toutiao</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
 	<name>toutiao</name>
 	<description>toutiao nowcoder</description>
 
