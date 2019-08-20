@@ -6,6 +6,8 @@ import java.util.Map;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/14 10:30
+ * 事件原型，产生事件的用户Id、事件的类型、事件的Id、事件实体的原始用户，
+ * 存入Map中
  */
 public class EventModel {
     private EventType type;//点赞还是什么
@@ -13,14 +15,14 @@ public class EventModel {
     private int entityType;//评论哪个事件
     private int entityId;//评论哪个事件
     private int entityOwnerId;//关联的用户
-    private Map<String ,String>exts=new HashMap<>();
+    private Map<String, String> exts = new HashMap<> ();
 
     public EventModel() {
 
     }//默认函数，反射时首先创建
 
     public EventModel setExt(String key, String value) {
-        exts.put(key, value);
+        exts.put (key, value);
         return this;
     }
 
@@ -29,7 +31,7 @@ public class EventModel {
     }
 
     public String getExt(String key) {
-        return exts.get(key);
+        return exts.get (key);
     }
 
 

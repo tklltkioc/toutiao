@@ -9,19 +9,20 @@ import org.springframework.stereotype.Service;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/14 10:43
+ * 事件的生产机制，JSON压缩字符串存入Redis
  */
 @Service
 public class EventProducer {
     @Autowired
     JedisAdapter jedisAdapter;
 
-    public boolean fireEvent(EventModel eventModel){
-        try{
-            String json= JSONObject.toJSONString(eventModel);//对象转为字符串
-            String key= RedisKeyUtil.getEventQueueKey();//放到redis
-            jedisAdapter.lpush(key, json);
+    public boolean fireEvent(EventModel eventModel) {
+        try {
+            String json = JSONObject.toJSONString (eventModel);//对象转为字符串
+            String key = RedisKeyUtil.getEventQueueKey ();//放到redis
+            jedisAdapter.lpush (key, json);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }

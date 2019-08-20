@@ -265,11 +265,11 @@ public class MultiThreadTests {
 //        testThread ();
 //        testSynchronized();
 //        testBlockQueue();
-//        testThreadLocal();
+        testThreadLocal();
 //        testExecutor();
 //        testWithAtor();
 //        testWithOutAtor();
-        testFuture();
+//        testFuture();
     }
 
 
