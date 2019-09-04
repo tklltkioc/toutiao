@@ -15,6 +15,7 @@ import java.util.Set;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/13 14:27
+ * Java重写Redis命令操作
  */
 @Service
 public class JedisAdapter implements InitializingBean {

@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/14 14:37
+ * 点赞事件
  */
 @Component
 public class LikeHandler implements EventHandler {
@@ -30,18 +31,18 @@ public class LikeHandler implements EventHandler {
 
     @Override
     public void doHandler(EventModel model) {
-        Message message=new Message();
-        message.setFromId(WendaUtil.SYSTEM_USERID);
-        message.setToId(model.getEntityOwnerId());//存在自己点赞自己
-        message.setCreatedDate(new Date());
-        User user=userService.getUser(model.getActorId());
-        message.setContent("用户"+user.getName()+"赞了你的评论,http://127.0.0.1:8080/question"+model.getExt("questionId"));
+        Message message = new Message ();
+        message.setFromId (WendaUtil.SYSTEM_USERID);
+        message.setToId (model.getEntityOwnerId ());//存在自己点赞自己
+        message.setCreatedDate (new Date ());
+        User user = userService.getUser (model.getActorId ());
+        message.setContent ("用户" + user.getName () + "赞了你的评论,http://127.0.0.1:8080/question" + model.getExt ("questionId"));
 
-        messageService.addMessage(message);
+        messageService.addMessage (message);
     }
 
     @Override
     public List<EventType> getSupportEventTypes() {
-        return Arrays.asList(EventType.LIKE);
+        return Arrays.asList (EventType.LIKE);
     }
 }
