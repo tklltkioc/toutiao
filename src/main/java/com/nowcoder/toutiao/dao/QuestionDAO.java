@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * 问题数据层
+ */
 @Mapper
 @Repository
 public interface QuestionDAO {

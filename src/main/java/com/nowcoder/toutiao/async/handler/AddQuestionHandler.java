@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/18 21:04
+ * 发布问题事件
  */
 @Component
 public class AddQuestionHandler implements EventHandler {

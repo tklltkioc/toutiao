@@ -9,6 +9,9 @@ import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
+/**
+ * 问题服务、方法
+ */
 @Service
 public class QuestionService {
     @Autowired

@@ -2,6 +2,10 @@ package com.nowcoder.toutiao.model;
 
 import java.util.Date;
 
+/**
+ * 问题model
+ */
+
 public class Question {
     private int id;
     private String title;
