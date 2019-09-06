@@ -2,6 +2,7 @@ package com.nowcoder.toutiao.model;
 
 import java.util.Date;
 
+// 消息model
 public class Message {
     private int id;
     private int fromId;
@@ -11,63 +12,63 @@ public class Message {
     private int hasRead;
     private String conversationId;
 
-    public int getId() {
+    public int getId () {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId (int id) {
         this.id = id;
     }
 
-    public int getFromId() {
+    public int getFromId () {
         return fromId;
     }
 
-    public void setFromId(int fromId) {
+    public void setFromId (int fromId) {
         this.fromId = fromId;
     }
 
-    public int getToId() {
+    public int getToId () {
         return toId;
     }
 
-    public void setToId(int toId) {
+    public void setToId (int toId) {
         this.toId = toId;
     }
 
-    public String getContent() {
+    public String getContent () {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent (String content) {
         this.content = content;
     }
 
-    public Date getCreatedDate() {
+    public Date getCreatedDate () {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate (Date createdDate) {
         this.createdDate = createdDate;
     }
 
-    public int getHasRead() {
+    public int getHasRead () {
         return hasRead;
     }
 
-    public void setHasRead(int hasRead) {
+    public void setHasRead (int hasRead) {
         this.hasRead = hasRead;
     }
 
-    public String getConversationId() {
+    public String getConversationId () {
         if (fromId < toId) {
-            return String.format("%d_%d", fromId, toId);
+            return String.format ("%d_%d", fromId, toId);
         } else {
-            return String.format("%d_%d", toId, fromId);
+            return String.format ("%d_%d", toId, fromId);
         }
     }
 
-    public void setConversationId(String conversationId) {
+    public void setConversationId (String conversationId) {
         this.conversationId = conversationId;
     }
 }

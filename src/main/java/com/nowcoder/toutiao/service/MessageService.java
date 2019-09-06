@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/12 15:41
+ * 消息服务、方法
  */
 @Service
 public class MessageService {
@@ -19,26 +20,25 @@ public class MessageService {
     @Autowired
     SensitiveService sensitiveService;
 
-    public int addMessage(Message message){
-        message.setContent(sensitiveService.filter(message.getContent()));
-        return messageDAO.addMessage(message);
+    public int addMessage(Message message) {
+        message.setContent (sensitiveService.filter (message.getContent ()));
+        return messageDAO.addMessage (message);
     }
 
-    public List<Message>getConversationDetail(String conversationId,int offset,int limit){
-        return messageDAO.getConversationDetail(conversationId,offset,limit);
+    public List<Message> getConversationDetail(String conversationId, int offset, int limit) {
+        return messageDAO.getConversationDetail (conversationId, offset, limit);
     }
 
     public List<Message> getConversationList(int userId, int offset, int limit) {
-        return messageDAO.getConversationList(userId, offset, limit);
+        return messageDAO.getConversationList (userId, offset, limit);
     }
 
-    public int getConversationUnreadCount(int userId,String conversationId){
-        return messageDAO.getConversationUnreadCount(userId,conversationId);
+    public int getConversationUnreadCount(int userId, String conversationId) {
+        return messageDAO.getConversationUnreadCount (userId, conversationId);
     }
 
-    public int updateUnreadCount(int id,int has_read){
-        return messageDAO.updateUnreadCount(id,has_read);
+    public int updateUnreadCount(int id, int has_read) {
+        return messageDAO.updateUnreadCount (id, has_read);
     }
-
 
 }
