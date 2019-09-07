@@ -19,6 +19,7 @@ import java.util.List;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/15 20:54
+ * 关注事件
  */
 @Component
 public class FollowHandler implements EventHandler {
@@ -30,7 +31,7 @@ public class FollowHandler implements EventHandler {
     UserService userService;
 
     @Override
-    public void doHandler(EventModel model) {
+    public void doHandler ( EventModel model ) {
         Message message = new Message ();
         message.setFromId (WendaUtil.SYSTEM_USERID);
         message.setToId (model.getEntityOwnerId ());
@@ -48,7 +49,7 @@ public class FollowHandler implements EventHandler {
     }
 
     @Override
-    public List<EventType> getSupportEventTypes() {
+    public List<EventType> getSupportEventTypes ( ) {
         return Arrays.asList (EventType.FOLLOW);
     }
 }

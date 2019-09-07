@@ -22,6 +22,7 @@ import java.util.Map;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/15 16:45
+ * 关注、被关注控制器
  */
 @Controller
 public class FollowController {
@@ -46,9 +47,9 @@ public class FollowController {
     EventProducer eventProducer;
 
     //当前用户进行关注的用户
-    @RequestMapping(path = {"/followUser"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping (path = {"/followUser"}, method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
-    public String followUser (@RequestParam("userId") int userId) {
+    public String followUser(@RequestParam ("userId") int userId) {
         if (hostHolder.getUser () == null) {
             return WendaUtil.getJSONString (999);
         }
@@ -64,9 +65,9 @@ public class FollowController {
     }
 
     //当前用户取消用户关注
-    @RequestMapping(path = {"/unfollowUser"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping (path = {"/unfollowUser"}, method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
-    public String unfollowUser (@RequestParam("userId") int userId) {
+    public String unfollowUser(@RequestParam ("userId") int userId) {
         if (hostHolder.getUser () == null) {
             return WendaUtil.getJSONString (999);
         }
@@ -82,9 +83,9 @@ public class FollowController {
     }
 
     //当前用户关注的问题
-    @RequestMapping(path = {"/followQuestion"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping (path = {"/followQuestion"}, method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
-    public String followQuestion (@RequestParam("questionId") int questionId) {
+    public String followQuestion(@RequestParam ("questionId") int questionId) {
         if (hostHolder.getUser () == null) {
             return WendaUtil.getJSONString (999);
         }
@@ -112,9 +113,9 @@ public class FollowController {
     }
 
     //当前用户取消问题关注
-    @RequestMapping(path = {"/unfollowQuestion"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping (path = {"/unfollowQuestion"}, method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
-    public String unfollowQuestion (@RequestParam("questionId") int questionId) {
+    public String unfollowQuestion(@RequestParam ("questionId") int questionId) {
         if (hostHolder.getUser () == null) {
             return WendaUtil.getJSONString (999);
         }
@@ -136,8 +137,8 @@ public class FollowController {
         return WendaUtil.getJSONString (ret ? 0 : 1, info);
     }
 
-    @RequestMapping(path = {"/user/{uid}/followers"}, method = {RequestMethod.GET})
-    public String followers (Model model, @PathVariable("uid") int userId) {
+    @RequestMapping (path = {"/user/{uid}/followers"}, method = {RequestMethod.GET})
+    public String followers(Model model, @PathVariable ("uid") int userId) {
         List<Integer> followerIds = followService.getFollowers (EntityType.ENTITY_USER, userId, 0, 10);
         if (hostHolder.getUser () != null) {
             model.addAttribute ("followers", getUsersInfo (hostHolder.getUser ().getId (), followerIds));
@@ -149,8 +150,8 @@ public class FollowController {
         return "followers";
     }
 
-    @RequestMapping(path = {"/user/{uid}/followees"}, method = {RequestMethod.GET})
-    public String followees (Model model, @PathVariable("uid") int userId) {
+    @RequestMapping (path = {"/user/{uid}/followees"}, method = {RequestMethod.GET})
+    public String followees(Model model, @PathVariable ("uid") int userId) {
         List<Integer> followeeIds = followService.getFollowees (userId, EntityType.ENTITY_USER, 0, 10);
 
         if (hostHolder.getUser () != null) {
@@ -164,7 +165,7 @@ public class FollowController {
     }
 
     //本地用户关注的用户
-    private List<ViewObject> getUsersInfo (int localUserId, List<Integer> userIds) {
+    private List<ViewObject> getUsersInfo(int localUserId, List<Integer> userIds) {
         List<ViewObject> userInfos = new ArrayList<ViewObject> ();
         for (Integer uid : userIds) {
             User user = userService.getUser (uid);
