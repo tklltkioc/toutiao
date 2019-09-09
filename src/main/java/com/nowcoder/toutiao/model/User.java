@@ -1,5 +1,6 @@
 package com.nowcoder.toutiao.model;
 
+// 用户model
 public class User {
     private int id;
     private String name;

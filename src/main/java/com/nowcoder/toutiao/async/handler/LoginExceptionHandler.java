@@ -15,6 +15,7 @@ import java.util.Map;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/14 15:21
+ * 登录异常事件处理
  */
 @Component
 public class LoginExceptionHandler implements EventHandler {

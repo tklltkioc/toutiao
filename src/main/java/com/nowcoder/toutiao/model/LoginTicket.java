@@ -1,7 +1,7 @@
 package com.nowcoder.toutiao.model;
 
 import java.util.Date;
-
+// 登录票根model
 public class LoginTicket {
     private int id;
     private int userId;

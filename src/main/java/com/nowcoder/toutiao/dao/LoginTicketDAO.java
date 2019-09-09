@@ -4,6 +4,7 @@ import com.nowcoder.toutiao.model.LoginTicket;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+// 登录票根数据表
 @Mapper
 @Repository
 public interface LoginTicketDAO{
