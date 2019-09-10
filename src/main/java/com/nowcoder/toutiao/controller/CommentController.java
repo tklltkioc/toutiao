@@ -21,10 +21,11 @@ import java.util.Date;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/12 11:14
+ * 评论控制器
  */
 @Controller
 public class CommentController {
-    private static final Logger logger= LoggerFactory.getLogger(CommentController.class);
+    private static final Logger logger = LoggerFactory.getLogger ( CommentController.class );
 
     @Autowired
     HostHolder hostHolder;
@@ -41,32 +42,32 @@ public class CommentController {
     @Autowired
     SensitiveService sensitiveService;
 
-    @RequestMapping(path = {"/addComment"},method = {RequestMethod.POST})
-    public String addComment(@RequestParam("questionId")int questionId,
-                              @RequestParam("content")String content){
-        try{
-            Comment comment = new Comment();
-            comment.setContent(content);
-            if (hostHolder.getUser()!=null){
-                comment.setUserId(hostHolder.getUser().getId());
-            }else {
-                comment.setUserId(WendaUtil.ANONYMOUS_USERID);
+    @RequestMapping ( path = { "/addComment" }, method = { RequestMethod.POST } )
+    public String addComment ( @RequestParam ( "questionId" ) int questionId,
+                               @RequestParam ( "content" ) String content ){
+        try {
+            Comment comment = new Comment ();
+            comment.setContent ( content );
+            if (hostHolder.getUser () != null) {
+                comment.setUserId ( hostHolder.getUser ().getId () );
+            } else {
+                comment.setUserId ( WendaUtil.ANONYMOUS_USERID );
 //                return "redirect:/reglogin";
             }
-            comment.setCreatedDate(new Date());
-            comment.setEntityId(questionId);
-            comment.setEntityType(EntityType.ENTITY_QUESTION);
-            commentService.addComment(comment);
+            comment.setCreatedDate ( new Date () );
+            comment.setEntityId ( questionId );
+            comment.setEntityType ( EntityType.ENTITY_QUESTION );
+            commentService.addComment ( comment );
 
             //更新题目里面的评论数量
-            int count=commentService.getCommentCount(comment.getEntityId(),comment.getEntityType());
-            questionService.updateCommentCount(comment.getEntityId(),count);
+            int count = commentService.getCommentCount ( comment.getEntityId (), comment.getEntityType () );
+            questionService.updateCommentCount ( comment.getEntityId (), count );
             //异步更新，无须事务
 
-        }catch (Exception e){
-            logger.error("增加评论失败"+e.getMessage());
+        } catch (Exception e) {
+            logger.error ( "增加评论失败" + e.getMessage () );
         }
-        return "redirect:/question/"+questionId;
+        return "redirect:/question/" + questionId;
     }
 
 }

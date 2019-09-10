@@ -5,6 +5,7 @@ import java.util.Date;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/12 10:29
+ * 评论model
  */
 public class Comment {
     private int id;
@@ -15,59 +16,59 @@ public class Comment {
     private Date createdDate;
     private int status;
 
-    public int getId() {
+    public int getId ( ) {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId ( int id ) {
         this.id = id;
     }
 
-    public int getUserId() {
+    public int getUserId ( ) {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId ( int userId ) {
         this.userId = userId;
     }
 
-    public int getEntityId() {
+    public int getEntityId ( ) {
         return entityId;
     }
 
-    public void setEntityId(int entityId) {
+    public void setEntityId ( int entityId ) {
         this.entityId = entityId;
     }
 
-    public int getEntityType() {
+    public int getEntityType ( ) {
         return entityType;
     }
 
-    public void setEntityType(int entityType) {
+    public void setEntityType ( int entityType ) {
         this.entityType = entityType;
     }
 
-    public String getContent() {
+    public String getContent ( ) {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent ( String content ) {
         this.content = content;
     }
 
-    public Date getCreatedDate() {
+    public Date getCreatedDate ( ) {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate ( Date createdDate ) {
         this.createdDate = createdDate;
     }
 
-    public int getStatus() {
+    public int getStatus ( ) {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus ( int status ) {
         this.status = status;
     }
 }
