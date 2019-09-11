@@ -22,6 +22,7 @@ import java.util.*;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/16 16:09
+ * feed事件处理，建立feed中的data
  */
 @Component
 public class FeedHandler implements EventHandler {
@@ -42,65 +43,65 @@ public class FeedHandler implements EventHandler {
 
 
     //建立feed的data
-    private String buildFeedData(EventModel model) {
-        Map<String, String> map = new HashMap<String ,String>();
+    private String buildFeedData (EventModel model) {
+        Map<String, String> map = new HashMap<String, String> ();
         // 触发用户是通用的
-        User actor = userService.getUser(model.getActorId());
+        User actor = userService.getUser (model.getActorId ());
         if (actor == null) {
             return null;
         }
-        map.put("userId", String.valueOf(actor.getId()));
-        map.put("userHead", actor.getHeadUrl());
-        map.put("userName", actor.getName());
+        map.put ("userId", String.valueOf (actor.getId ()));
+        map.put ("userHead", actor.getHeadUrl ());
+        map.put ("userName", actor.getName ());
 
         //关注的评论或者是关注问题且是关注粉丝
-        if (model.getType() == EventType.COMMENT ||
-                (model.getType() == EventType.FOLLOW  && model.getEntityType() == EntityType.ENTITY_QUESTION)) {
-            Question question = questionService.getById(model.getEntityId());//问题Id
+        if (model.getType () == EventType.COMMENT ||
+                ( model.getType () == EventType.FOLLOW && model.getEntityType () == EntityType.ENTITY_QUESTION )) {
+            Question question = questionService.getById (model.getEntityId ());//问题Id
             if (question == null) {
                 return null;
             }
-            map.put("questionId", String.valueOf(question.getId()));
-            map.put("questionTitle", question.getTitle());
-            return JSONObject.toJSONString(map);
+            map.put ("questionId", String.valueOf (question.getId ()));
+            map.put ("questionTitle", question.getTitle ());
+            return JSONObject.toJSONString (map);
         }
         return null;
     }
 
     @Override
-    public void doHandler(EventModel model) {
+    public void doHandler (EventModel model) {
         // 为了测试，把model的userId随机一下
 //        Random r = new Random();
 //        model.setActorId(1+r.nextInt(10));
 
         // 构造一个新鲜事
-        Feed feed = new Feed();
-        feed.setCreatedDate(new Date());
-        feed.setType(model.getType().getValue());
-        feed.setUserId(model.getActorId());
-        feed.setData(buildFeedData(model));
+        Feed feed = new Feed ();
+        feed.setCreatedDate (new Date ());
+        feed.setType (model.getType ().getValue ());
+        feed.setUserId (model.getActorId ());
+        feed.setData (buildFeedData (model));
 
-        if (feed.getData() == null) {
+        if (feed.getData () == null) {
             // 不支持的feed
             return;
         }
-        feedService.addFeed(feed);
+        feedService.addFeed (feed);
 
         // 获得所有粉丝
-        List<Integer> followers = followService.getFollowers(EntityType.ENTITY_USER, model.getActorId(), Integer.MAX_VALUE);
+        List<Integer> followers = followService.getFollowers (EntityType.ENTITY_USER, model.getActorId (), Integer.MAX_VALUE);
         // 系统队列,未登录情况
-        followers.add(0);
+        followers.add (0);
         // 给所有粉丝推事件
         for (int follower : followers) {
-            String timelineKey = RedisKeyUtil.getTimelineKey(follower);
-            jedisAdapter.lpush(timelineKey, String.valueOf(feed.getId()));
+            String timelineKey = RedisKeyUtil.getTimelineKey (follower);
+            jedisAdapter.lpush (timelineKey, String.valueOf (feed.getId ()));
             // 限制最长长度，如果timelineKey的长度过大，就删除后面的新鲜事
         }
     }
 
     @Override
-    public List<EventType> getSupportEventTypes() {
+    public List<EventType> getSupportEventTypes ( ) {
         //feed事件包括评论、关注
-        return Arrays.asList(new EventType[]{EventType.COMMENT, EventType.FOLLOW});
+        return Arrays.asList (new EventType[]{ EventType.COMMENT, EventType.FOLLOW });
     }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/16 16:02
+ * feed服务、方法
  */
 @Service
 
@@ -17,17 +18,17 @@ public class FeedService {
     @Autowired
     FeedDAO feedDAO;
 
-    public List<Feed> getUserFeeds(int maxId, List<Integer> userIds, int count) {
-        return feedDAO.selectUserFeeds(maxId, userIds, count);
+    public List<Feed> getUserFeeds ( int maxId, List<Integer> userIds, int count ) {
+        return feedDAO.selectUserFeeds (maxId, userIds, count);
     }
 
-    public boolean addFeed(Feed feed) {
-        feedDAO.addFeed(feed);
-        return feed.getId() > 0;
+    public boolean addFeed ( Feed feed ) {
+        feedDAO.addFeed (feed);
+        return feed.getId () > 0;
     }
 
-    public Feed getById(int id) {
-        return feedDAO.getFeedById(id);
+    public Feed getById ( int id ) {
+        return feedDAO.getFeedById (id);
     }
 
 }

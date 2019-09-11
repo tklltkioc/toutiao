@@ -19,9 +19,10 @@ import java.util.List;
 /**
  * @author tktktkl@foxmail.com
  * @date 2019/6/16 16:08
+ * feed流控制器
  */
 @Controller
-public class FeedController {
+public class FeedController{
 //    private static final Logger logger = LoggerFactory.getLogger(FeedController.class);
 
     @Autowired
@@ -37,32 +38,32 @@ public class FeedController {
     JedisAdapter jedisAdapter;
 
     //推模式,无需删除取消关注的用户发来的事件信息
-    @RequestMapping(path = {"/pushfeeds"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String getPushFeeds(Model model) {
-        int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
-        List<String> feedIds = jedisAdapter.lrange(RedisKeyUtil.getTimelineKey(localUserId), 0, 10);
-        List<Feed> feeds = new ArrayList<Feed>();
+    @RequestMapping ( path = { "/pushfeeds" }, method = { RequestMethod.GET, RequestMethod.POST } )
+    public String getPushFeeds (Model model) {
+        int localUserId = hostHolder.getUser () != null ? hostHolder.getUser ().getId () : 0;
+        List<String> feedIds = jedisAdapter.lrange (RedisKeyUtil.getTimelineKey (localUserId), 0, 10);
+        List<Feed> feeds = new ArrayList<Feed> ();
         for (String feedId : feedIds) {
-            Feed feed = feedService.getById(Integer.parseInt(feedId));
+            Feed feed = feedService.getById (Integer.parseInt (feedId));
             if (feed != null) {
-                feeds.add(feed);
+                feeds.add (feed);
             }
         }
-        model.addAttribute("feeds", feeds);
+        model.addAttribute ("feeds", feeds);
         return "feeds";
     }
 
     //拉模式
-    @RequestMapping(path = {"/pullfeeds"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String getPullFeeds(Model model) {
-        int localUserId = hostHolder.getUser() != null ? hostHolder.getUser().getId() : 0;
-        List<Integer> followees = new ArrayList<>();
+    @RequestMapping ( path = { "/pullfeeds" }, method = { RequestMethod.GET, RequestMethod.POST } )
+    public String getPullFeeds (Model model) {
+        int localUserId = hostHolder.getUser () != null ? hostHolder.getUser ().getId () : 0;
+        List<Integer> followees = new ArrayList<> ();
         if (localUserId != 0) {
             // 所有关注的人
-            followees = followService.getFollowees(localUserId, EntityType.ENTITY_USER, Integer.MAX_VALUE);
+            followees = followService.getFollowees (localUserId, EntityType.ENTITY_USER, Integer.MAX_VALUE);
         }
-        List<Feed> feeds = feedService.getUserFeeds(Integer.MAX_VALUE, followees, 10);
-        model.addAttribute("feeds", feeds);
+        List<Feed> feeds = feedService.getUserFeeds (Integer.MAX_VALUE, followees, 10);
+        model.addAttribute ("feeds", feeds);
         return "feeds";
     }
 
